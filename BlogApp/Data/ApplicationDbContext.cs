@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BlogApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace BlogApp.Data
             : base(options)
         {
         }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<EditHistory> editHistories { get; set; }
     }
 }
