@@ -12,6 +12,7 @@ namespace BlogApp.Models.ViewModels
         [Required, Display(Name = "Header Image")]
         public IFormFile HeaderImage { get; set; }
         public Article article { get; set; }
+
     }
 }
 
