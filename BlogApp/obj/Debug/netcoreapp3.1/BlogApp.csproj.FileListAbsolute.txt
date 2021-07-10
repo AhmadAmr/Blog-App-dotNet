@@ -338,3 +338,4 @@ C:\Users\Home\Desktop\Blog-App-dotNet\BlogApp\obj\Debug\netcoreapp3.1\BlogApp.dl
 C:\Users\Home\Desktop\Blog-App-dotNet\BlogApp\obj\Debug\netcoreapp3.1\BlogApp.pdb
 C:\Users\Home\Desktop\Blog-App-dotNet\BlogApp\obj\Debug\netcoreapp3.1\BlogApp.genruntimeconfig.cache
 C:\Users\Home\Desktop\Blog-App-dotNet\BlogApp\obj\Debug\netcoreapp3.1\Razor\Views\Article\Create.cshtml.g.cs
+C:\Users\Home\Desktop\Blog-App-dotNet\BlogApp\obj\Debug\netcoreapp3.1\Razor\Views\Article\Edit.cshtml.g.cs

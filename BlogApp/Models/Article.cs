@@ -20,8 +20,11 @@ namespace BlogApp.Models
         public DateTime CreatedOn { get; set; }
         
         public bool Published { get; set; }
-
+        public bool Draft { get; set; }
+        public bool Deleted { get; set; }
         public bool Approved { get; set; }
+
+        public string Image { get; set; }
         public ApplicationUser Approver { get; set; }
 
         public virtual IEnumerable<EditHistory> EditHistories { get; set; }

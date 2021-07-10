@@ -7,7 +7,7 @@
 <div class="container">
     <h1 class="mt-5">Create</h1>
     <div class="row">
-
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="card mt-3">
             <form asp-controller="Article" asp-action="CreateArticle" method="post" enctype="multipart/form-data">
                 <div class="card-header">
@@ -43,7 +43,7 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                     <p style="color: orangered; margin-bottom: 0;">Please Note:</p>
-                    <p>Your post will need to be approved before it is published to the main page. Please feel free to email me to approve your post.</p>
+                    <p>Your post will need to be approved before it is published </p>
                 </div>
             </form>
         </div>
