@@ -1,4 +1,5 @@
-﻿using BlogApp.Models;
+﻿using BlogApp.Data;
+using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +13,18 @@ namespace BlogApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , ApplicationDbContext conext) 
         {
             _logger = logger;
+            _context = conext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var article = _context.Articles.Where(x => x.Published);
+            return View(article);
         }
 
         public IActionResult Privacy()

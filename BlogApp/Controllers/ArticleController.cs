@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,13 +27,23 @@ namespace BlogApp.Controllers
             webHostEnvironment = hostEnvironment;
             _context = conext;
         }
+
+        public IActionResult ArticleDetail(int ? id )
+        {
+
+            var article = _context.Articles.Include(x => x.Author).FirstOrDefault(x => x.Id == id);
+            return View(article);
+        }
+
+
         [Authorize]
-        public IActionResult Create(ArticleCreateViewModel createViewModel)
+        public IActionResult Create()
         {
             
-            return View();
+            return View(new ArticleCreateViewModel());
         }
-        public IActionResult Edit(int ? id, ArticleCreateViewModel createViewModel)
+        [Authorize]
+        public IActionResult Edit(int ? id)
         {
             if (id == null || id == 0)
                 return NotFound();
@@ -42,11 +53,12 @@ namespace BlogApp.Controllers
             if (obj == null)
                 return NotFound();
 
-            createViewModel.article = obj;
+            
 
-            return View(createViewModel);
+            return View(new ArticleCreateViewModel { article=obj});
         }
 
+        
         [HttpPost]
         
         public async Task<ActionResult<Article>> CreateArticle (ArticleCreateViewModel createViewModel )
@@ -62,7 +74,31 @@ namespace BlogApp.Controllers
                 return createViewModel.article;
 
             }
-            return View(nameof(Index),createViewModel);
+            return View(nameof(Create),createViewModel);
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult<Article>> EditArticle(ArticleCreateViewModel editViewModel , EditHistory editHistory)
+        {
+            
+            var model = _context.Articles.FirstOrDefault(x => x.Id == editViewModel.article.Id);
+            model.Title = editViewModel.article.Title;
+            model.Content = editViewModel.article.Content;
+            model.Published = editViewModel.article.Published;
+            editHistory.user= await _userManager.GetUserAsync(User);
+            editHistory.UpdatedOn = DateTime.Now;
+            model.EditHistories = new List<EditHistory>{ editHistory} ;
+
+            if (editViewModel.HeaderImage != null)
+            {
+                string ImgName = UploadedFile(editViewModel);
+                model.Image = ImgName;
+            }
+
+            _context.Add(editHistory);
+            _context.Update(model);
+            await _context.SaveChangesAsync();
+            return model;
         }
 
         private string UploadedFile(ArticleCreateViewModel model)

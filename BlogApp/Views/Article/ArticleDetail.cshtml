@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BlogApp.Data
+@model BlogApp.Models.Article
+@inject UserManager<ApplicationUser> UserManager
+
+<header class="masthead" style="background-image: url('https://localhost:44323/img/@Model.Image') ">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>@Model.Title</h1>
+                    <span class="subheading">By: @Model.Author.FirstName</span>
+                    <span class="subheading">On- @Model.CreatedOn</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto testing">
+                @Html.Raw((Model.Content))
+                <br />
+                <a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">EDIT</a>
+            </div>
+        </div>
+        
+    </div>
+</article>

@@ -13,7 +13,6 @@ namespace BlogApp.Models
         public int Id { get; set; }
 
         public DateTime UpdatedOn { get; set; }
-        public ApplicationUser Author { get; set; }
 
         public ApplicationUser user { get; set; }
     }
